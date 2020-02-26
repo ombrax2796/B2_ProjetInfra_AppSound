@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+#Initialisation des variables
+urladdress=''
+videolocacy=''
+
+#Demande à l'utilisateur d'entrer l'adresse URL YouTube
+echo "Entrez l'adresse de la vidéo youtube:"
+read urladdress
+
+
+#Demande à l'utilisateur d'entrer le nom du dossier dans lequel il veut enregistrer l'audio YouTube
+echo -e "\nDans quelle playliste voulez vous la sauvegarder ? (Si vous voulez une nouvelle playliste écrivez juste son nom)"
+ls "VosPlayList"
+
+read videolocacy
+videolocacy=$HOME'/'AppSound'/'VosPlayList'/'$videolocacy
+
+
+#Si le dossier entré par l'utilisateur n'existe pas, on le crée
+if [ ! -d "$videolocacy" ]
+then
+  echo -e "\nLe dossier [$videolocacy] n'existe pas."
+  mkdir $videolocacy
+  echo -e "Le dossier vient d'être créé."
+fi
+echo -e "\nTéléchargement de l'audio YouTube dans [$videolocacy]"
+
+
+#Déplacement dans le dossier spécifié
+cd $videolocacy
+
+
+#Téléchargement de l'audio YouTube
+youtube-dl -x $urladdress
+
+#Affichage de fin
+echo -e "\n\nTéléchargement de l'audio YouTube terminée."
